@@ -1,0 +1,7 @@
+.idea
+*.class
+gradlew.bat
+.gradle/
+build/
+out
+bot.properties
