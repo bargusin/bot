@@ -22,9 +22,9 @@ public class CheckBoxComponent {
 
     public void addItem(ChekBoxButton item) {
         handlerExcecutor.add(new Handler(item));
-        List<InlineKeyboardButton> rowInline1 = new ArrayList<>();
-        rowInline1.add(item);
-        rowsInline.add(rowInline1);
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+        rowInline.add(item);
+        rowsInline.add(rowInline);
     }
 
     public InlineKeyboardMarkup getKeyboardMarkup() {

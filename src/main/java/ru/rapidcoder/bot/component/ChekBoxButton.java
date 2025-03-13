@@ -33,4 +33,8 @@ public class ChekBoxButton extends InlineKeyboardButton implements Component {
     public void refresh() {
         isSelected = false;
     }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
 }
