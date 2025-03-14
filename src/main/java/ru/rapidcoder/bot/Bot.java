@@ -88,10 +88,13 @@ public class Bot extends TelegramLongPollingCommandBot {
         if (update.hasMessage()) {
             // Обработка обычных сообщений
         } else if (update.hasCallbackQuery()) {
-            handlerExcecutor.execute(update.getCallbackQuery().getData());
-
             Message msg = (Message) update.getCallbackQuery().getMessage();
-            sendEditMessage(msg.getChatId(), msg.getMessageId(), keyboardManager.get(msg.getChatId()));
+            String result = handlerExcecutor.execute(update.getCallbackQuery().getData());
+            if (result == null) {
+                sendEditMessage(msg.getChatId(), msg.getMessageId(), keyboardManager.get(msg.getChatId()));
+            } else {
+                sendMessage(msg.getChatId(), result);
+            }
         }
     }
 

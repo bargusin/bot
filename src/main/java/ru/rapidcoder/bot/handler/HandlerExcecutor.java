@@ -23,11 +23,17 @@ public class HandlerExcecutor {
     /**
      * Запуск обработчика события
      * @param callbackData идентификатор события
+     * @return результат ответа события
      */
-    public void execute(String callbackData) {
+    /**
+     *
+     * @param callbackData
+     * @return
+     */
+    public String execute(String callbackData) {
         if (handlers.containsKey(callbackData)) {
             Handler handler = handlers.get(callbackData);
-            handler.execute();
+            return handler.execute();
         } else {
             throw new RuntimeException("Handler by callbackData='" + callbackData + "' not found");
         }

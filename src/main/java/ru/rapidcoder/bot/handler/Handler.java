@@ -16,8 +16,8 @@ public class Handler {
     /**
      * Запуск обработчика
      */
-    public void execute() {
-        component.execute();
+    public String execute() {
+        return component.execute();
     }
 
     /**

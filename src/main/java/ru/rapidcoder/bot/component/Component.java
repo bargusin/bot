@@ -10,12 +10,8 @@ public interface Component {
 
     /**
      * Запуск обработки события
+     * @return ответ на событие компонента
      */
-    void execute();
-
-    /**
-     * Сброс компонента в исходное состояние
-     */
-    void refresh();
+    String execute();
 
 }

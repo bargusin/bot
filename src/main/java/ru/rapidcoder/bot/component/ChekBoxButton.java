@@ -20,7 +20,7 @@ public class ChekBoxButton extends InlineKeyboardButton implements Component {
         refresh();
     }
 
-    public void execute() {
+    public String execute() {
         if(isSelected) {
             setText(unchecked);
             isSelected = false;
@@ -28,9 +28,12 @@ public class ChekBoxButton extends InlineKeyboardButton implements Component {
             setText(checked);
             isSelected = true;
         }
+
+        return null;
     }
 
     public void refresh() {
+        setText(unchecked);
         isSelected = false;
     }
 

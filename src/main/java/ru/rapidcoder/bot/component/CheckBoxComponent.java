@@ -27,6 +27,27 @@ public class CheckBoxComponent {
         rowsInline.add(rowInline);
     }
 
+    public void addSender(SendCheckBoxButton sendButton, CancelCheckBoxButton cancelButton) {
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+        handlerExcecutor.add(new Handler(sendButton));
+        handlerExcecutor.add(new Handler(cancelButton));
+        rowInline.add(sendButton);
+        rowInline.add(cancelButton);
+        rowsInline.add(rowInline);
+    }
+
+    public List<ChekBoxButton> getItems() {
+        List<ChekBoxButton> items = new ArrayList<>();
+        for (List<InlineKeyboardButton> list : rowsInline) {
+            for (InlineKeyboardButton button : list) {
+                if (button instanceof ChekBoxButton) {
+                    items.add((ChekBoxButton) button);
+                }
+            }
+        }
+        return items;
+    }
+
     public InlineKeyboardMarkup getKeyboardMarkup() {
         return keyboardMarkup;
     }
