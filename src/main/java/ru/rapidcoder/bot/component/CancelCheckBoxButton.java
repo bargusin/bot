@@ -7,10 +7,12 @@ import java.util.List;
 
 public class CancelCheckBoxButton extends InlineKeyboardButton implements Component {
 
-    List<ChekBoxButton> checkBoxButtons;
+    private final static String BUTTON_TEXT = "Cancel";
 
-    public CancelCheckBoxButton(String text, String callbackData, List<ChekBoxButton> checkBoxButtons) {
-        setText(text);
+    private final List<ChekBoxButton> checkBoxButtons;
+
+    public CancelCheckBoxButton(String callbackData, List<ChekBoxButton> checkBoxButtons) {
+        setText(BUTTON_TEXT);
         setCallbackData(callbackData);
         this.checkBoxButtons = checkBoxButtons;
     }

@@ -8,10 +8,12 @@ import java.util.List;
 
 public class SendCheckBoxButton extends InlineKeyboardButton implements Component {
 
-    List<ChekBoxButton> checkBoxButtons;
+    private final static String BUTTON_TEXT = "Send";
 
-    public SendCheckBoxButton(String text, String callbackData, List<ChekBoxButton> checkBoxButtons) {
-        setText(text);
+    private final List<ChekBoxButton> checkBoxButtons;
+
+    public SendCheckBoxButton(String callbackData, List<ChekBoxButton> checkBoxButtons) {
+        setText(BUTTON_TEXT);
         setCallbackData(callbackData);
         this.checkBoxButtons = checkBoxButtons;
     }

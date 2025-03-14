@@ -21,8 +21,8 @@ public class ChekBoxCommandTwo extends ServiceCommand {
         checkBoxComponent.addItem(new ChekBoxButton("[ ] Button 2.2", "[X] Button 2.2", "CallbackData_2.2"));
 
         checkBoxComponent.addSender(
-                new SendCheckBoxButton("Send", "sendCallbackData_2", checkBoxComponent.getItems()),
-                new CancelCheckBoxButton("Cancel", "cancelCallbackData_2", checkBoxComponent.getItems())
+                new SendCheckBoxButton("sendCallbackData_2", checkBoxComponent.getItems()),
+                new CancelCheckBoxButton("cancelCallbackData_2", checkBoxComponent.getItems())
         );
         return checkBoxComponent.getKeyboardMarkup();
     }
