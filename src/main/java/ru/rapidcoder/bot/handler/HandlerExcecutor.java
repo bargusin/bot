@@ -25,11 +25,6 @@ public class HandlerExcecutor {
      * @param callbackData идентификатор события
      * @return результат ответа события
      */
-    /**
-     *
-     * @param callbackData
-     * @return
-     */
     public String execute(String callbackData) {
         if (handlers.containsKey(callbackData)) {
             Handler handler = handlers.get(callbackData);
@@ -41,6 +36,7 @@ public class HandlerExcecutor {
 
     /**
      * Добавление нового обрабочика событий
+     *
      * @param handler обработчик события
      */
     public void add(Handler handler) {
