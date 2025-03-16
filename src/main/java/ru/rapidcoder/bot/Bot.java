@@ -19,16 +19,17 @@ import ru.rapidcoder.bot.handler.KeyboardManager;
 
 public class Bot extends TelegramLongPollingCommandBot {
 
-    public static final String BOT_NAME = ResourcesAdapter.getProperties().get("botName").toString();
-    public static final String TOKEN_ID = ResourcesAdapter.getProperties().get("tokenId").toString();
     private static final Logger logger = LoggerFactory.getLogger(Bot.class);
-
+    private final String botName;
     private final HandlerExcecutor handlerExcecutor = HandlerExcecutor.getHandlerExcecutor();
 
     protected KeyboardManager keyboardManager = KeyboardManager.getKeyboardManager();
 
 
-    public Bot() {
+    public Bot(String botName, String tokenId) {
+        super(tokenId);
+        this.botName = botName;
+
         register(new StartCommand("start", "Старт"));
         register(new ChekBoxCommandOne("check1", "Множественный выбор 1"));
         register(new ChekBoxCommandTwo("check2", "Множественный выбор 2"));
@@ -80,7 +81,7 @@ public class Bot extends TelegramLongPollingCommandBot {
 
     @Override
     public String getBotUsername() {
-        return BOT_NAME;
+        return botName;
     }
 
     @Override
@@ -97,10 +98,4 @@ public class Bot extends TelegramLongPollingCommandBot {
             }
         }
     }
-
-    @Override
-    public String getBotToken() {
-        return TOKEN_ID;
-    }
-
 }
