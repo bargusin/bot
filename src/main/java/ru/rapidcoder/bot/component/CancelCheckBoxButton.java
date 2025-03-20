@@ -16,12 +16,4 @@ public class CancelCheckBoxButton extends InlineKeyboardButton implements Compon
         setCallbackData(callbackData);
         this.checkBoxButtons = checkBoxButtons;
     }
-
-    @Override
-    public String execute() {
-        for (ChekBoxButton button : checkBoxButtons) {
-            button.refresh();
-        }
-        return null;
-    }
 }

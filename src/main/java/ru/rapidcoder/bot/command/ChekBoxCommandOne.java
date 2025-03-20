@@ -4,10 +4,9 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.bots.AbsSender;
-import ru.rapidcoder.bot.component.CancelCheckBoxButton;
 import ru.rapidcoder.bot.component.CheckBoxComponent;
 import ru.rapidcoder.bot.component.ChekBoxButton;
-import ru.rapidcoder.bot.component.SendCheckBoxButton;
+import ru.rapidcoder.bot.handler.CheckBoxHandler;
 
 public class ChekBoxCommandOne extends ServiceCommand {
 
@@ -17,21 +16,24 @@ public class ChekBoxCommandOne extends ServiceCommand {
 
     private InlineKeyboardMarkup createKeyboard() {
         CheckBoxComponent checkBoxComponent = new CheckBoxComponent();
-        checkBoxComponent.addItem(new ChekBoxButton("[ ] Button 1.1", "[X] Button 1.1", "CallbackData_1.1"));
-        checkBoxComponent.addItem(new ChekBoxButton("[ ] Button 2.1", "[X] Button 2.1", "CallbackData_2.1"));
-        checkBoxComponent.addItem(new ChekBoxButton("[ ] Button 3.1", "[X] Button 3.1", "CallbackData_3.1"));
+        addCheckBoxButton(checkBoxComponent, "Button 1.1", "CallbackData_1.1");
+        addCheckBoxButton(checkBoxComponent, "Button 2.1", "CallbackData_2.1");
+        addCheckBoxButton(checkBoxComponent, "Button 3.1", "CallbackData_3.1");
 
-        checkBoxComponent.addSender(
-                new SendCheckBoxButton("sendCallbackData_1", checkBoxComponent.getItems()),
-                new CancelCheckBoxButton("cancelCallbackData_1", checkBoxComponent.getItems())
-        );
+        //checkBoxComponent.addSender(new SendCheckBoxButton("Send", "sendCallbackData_1", checkBoxComponent.getItems()), new CancelCheckBoxButton("Cancel", "cancelCallbackData_1", checkBoxComponent.getItems()));
         return checkBoxComponent.getKeyboardMarkup();
+    }
+
+    private void addCheckBoxButton(CheckBoxComponent component, String name, String callbackData) {
+        ChekBoxButton chekBoxButton = new ChekBoxButton(name, callbackData);
+        CheckBoxHandler handler = new CheckBoxHandler(chekBoxButton);
+        handler.setKeyboardMarkup(component.getKeyboardMarkup());
+        component.addItem(chekBoxButton, handler);
     }
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         InlineKeyboardMarkup keyboardMarkup = createKeyboard();
-        keyboardManager.save(chat.getId(), keyboardMarkup);
         sendAnswer(absSender, chat.getId(), "Выбор вариантов:", keyboardMarkup);
     }
 

@@ -1,31 +1,17 @@
 package ru.rapidcoder.bot.handler;
 
-import ru.rapidcoder.bot.component.Component;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.io.Serializable;
 
 /**
  * Обработчик события компонента
  */
-public class Handler {
+public interface Handler {
 
-    private final Component component;
+    BotApiMethod<Serializable> execute(Update update);
 
-    public Handler(Component component) {
-        this.component = component;
-    }
-
-    /**
-     * Запуск обработчика
-     */
-    public String execute() {
-        return component.execute();
-    }
-
-    /**
-     * Получение идентификатора события
-     * @return идентификатор события
-     */
-    public String getCallbackData() {
-        return component.getCallbackData();
-    }
+    String getCallbackData();
 
 }

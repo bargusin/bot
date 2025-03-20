@@ -2,42 +2,32 @@ package ru.rapidcoder.bot.component;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-public class ChekBoxButton extends InlineKeyboardButton implements Component {
+public class ChekBoxButton extends InlineKeyboardButton {
 
-    private boolean isSelected;
+    private final String name;
 
-    private final String checked;
+    private boolean selected;
 
-    private final String unchecked;
+    public ChekBoxButton(String name, String callbackData) {
+        this.name = name;
+        this.selected = false;
 
-    public ChekBoxButton(String unchecked, String checked, String callbackData) {
-        setText(unchecked);
+        setText(getButtonText());
         setCallbackData(callbackData);
-
-        this.checked = checked;
-        this.unchecked = unchecked;
 
         refresh();
     }
 
-    public String execute() {
-        if(isSelected) {
-            setText(unchecked);
-            isSelected = false;
-        } else {
-            setText(checked);
-            isSelected = true;
-        }
-
-        return null;
-    }
-
     public void refresh() {
-        setText(unchecked);
-        isSelected = false;
+        setText(getButtonText());
     }
 
-    public boolean isSelected() {
-        return isSelected;
+    public void switchSelection() {
+        this.selected = !selected;
+        refresh();
+    }
+
+    private String getButtonText() {
+        return selected ? "[x] " + name : "[] " + name;
     }
 }

@@ -20,21 +20,21 @@ public class CheckBoxComponent {
         keyboardMarkup.setKeyboard(rowsInline);
     }
 
-    public void addItem(ChekBoxButton item) {
-        handlerExcecutor.add(new Handler(item));
+    public void addItem(ChekBoxButton item, Handler handler) {
+        handlerExcecutor.add(handler);
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
         rowInline.add(item);
         rowsInline.add(rowInline);
     }
 
-    public void addSender(SendCheckBoxButton sendButton, CancelCheckBoxButton cancelButton) {
+/*    public void addSender(SendCheckBoxButton sendButton, CancelCheckBoxButton cancelButton) {
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
         handlerExcecutor.add(new Handler(sendButton));
         handlerExcecutor.add(new Handler(cancelButton));
         rowInline.add(sendButton);
         rowInline.add(cancelButton);
         rowsInline.add(rowInline);
-    }
+    }*/
 
     public List<ChekBoxButton> getItems() {
         List<ChekBoxButton> items = new ArrayList<>();

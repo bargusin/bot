@@ -1,5 +1,10 @@
 package ru.rapidcoder.bot.handler;
 
+import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,15 +25,10 @@ public class HandlerExcecutor {
         return handlerExcecutor;
     }
 
-    /**
-     * Запуск обработчика события
-     * @param callbackData идентификатор события
-     * @return результат ответа события
-     */
-    public String execute(String callbackData) {
+    public BotApiMethod<Serializable> execute(String callbackData, Update update, TelegramLongPollingCommandBot bot) {
         if (handlers.containsKey(callbackData)) {
             Handler handler = handlers.get(callbackData);
-            return handler.execute();
+            return handler.execute(update);
         } else {
             throw new RuntimeException("Handler by callbackData='" + callbackData + "' not found");
         }
@@ -36,7 +36,6 @@ public class HandlerExcecutor {
 
     /**
      * Добавление нового обрабочика событий
-     *
      * @param handler обработчик события
      */
     public void add(Handler handler) {
