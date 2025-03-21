@@ -1,9 +1,8 @@
 package ru.rapidcoder.bot.handler;
 
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,10 +23,10 @@ public class HandlerExcecutor {
         return handlerExcecutor;
     }
 
-    public BotApiMethod<Serializable> execute(String callbackData, Update update) {
+    public void execute(String callbackData, Update update, TelegramLongPollingCommandBot bot) {
         if (handlers.containsKey(callbackData)) {
             Handler handler = handlers.get(callbackData);
-            return handler.execute(update);
+            handler.execute(update, bot);
         } else {
             throw new RuntimeException("Handler by callbackData='" + callbackData + "' not found");
         }

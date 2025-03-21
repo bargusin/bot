@@ -3,23 +3,17 @@ package ru.rapidcoder.bot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.rapidcoder.bot.command.ChekBoxCommandOne;
 import ru.rapidcoder.bot.command.ChekBoxCommandTwo;
 import ru.rapidcoder.bot.command.HelpCommand;
 import ru.rapidcoder.bot.command.StartCommand;
 import ru.rapidcoder.bot.handler.HandlerExcecutor;
 
-import java.io.Serializable;
-
 public class Bot extends TelegramLongPollingCommandBot {
 
     private static final Logger logger = LoggerFactory.getLogger(Bot.class);
-
     private final String botName;
-
     private final HandlerExcecutor handlerExcecutor = HandlerExcecutor.getHandlerExcecutor();
 
     public Bot(String botName, String tokenId) {
@@ -41,12 +35,8 @@ public class Bot extends TelegramLongPollingCommandBot {
         if (update.hasMessage()) {
             // Обработка обычных сообщений
         } else if (update.hasCallbackQuery()) {
-            BotApiMethod<Serializable> method = handlerExcecutor.execute(update.getCallbackQuery().getData(), update);
-            try {
-                execute(method);
-            } catch (TelegramApiException e) {
-                logger.error(e.getMessage(), e);
-            }
+            handlerExcecutor.execute(update.getCallbackQuery()
+                    .getData(), update, this);
         }
     }
 

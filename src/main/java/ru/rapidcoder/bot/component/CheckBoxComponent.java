@@ -4,6 +4,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ru.rapidcoder.bot.handler.Handler;
 import ru.rapidcoder.bot.handler.HandlerExcecutor;
+import ru.rapidcoder.bot.handler.SendCheckBoxHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +28,14 @@ public class CheckBoxComponent {
         rowsInline.add(rowInline);
     }
 
-/*    public void addSender(SendCheckBoxButton sendButton, CancelCheckBoxButton cancelButton) {
+    public void addSender(SendCheckBoxButton sendButton, SendCheckBoxButton cancelButton) {
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
-        handlerExcecutor.add(new Handler(sendButton));
-        handlerExcecutor.add(new Handler(cancelButton));
+        handlerExcecutor.add(new SendCheckBoxHandler(sendButton, getItems()));
+        //handlerExcecutor.add(new Handler(cancelButton));
         rowInline.add(sendButton);
         rowInline.add(cancelButton);
         rowsInline.add(rowInline);
-    }*/
+    }
 
     public List<ChekBoxButton> getItems() {
         List<ChekBoxButton> items = new ArrayList<>();

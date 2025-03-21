@@ -3,36 +3,47 @@ package ru.rapidcoder.bot.handler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.rapidcoder.bot.component.ChekBoxButton;
+import ru.rapidcoder.bot.component.SendCheckBoxButton;
 
-public class CheckBoxHandler implements Handler {
+import java.util.List;
 
-    private static final Logger logger = LoggerFactory.getLogger(CheckBoxHandler.class);
+public class SendCheckBoxHandler implements Handler {
 
-    private final ChekBoxButton button;
+    private static final Logger logger = LoggerFactory.getLogger(SendCheckBoxHandler.class);
+
+    private final SendCheckBoxButton button;
+
+    private final List<ChekBoxButton> checkBoxButtons;
 
     private InlineKeyboardMarkup keyboardMarkup;
 
-    public CheckBoxHandler(ChekBoxButton button) {
+    public SendCheckBoxHandler(SendCheckBoxButton button, List<ChekBoxButton> checkBoxButtons) {
         this.button = button;
+        this.checkBoxButtons = checkBoxButtons;
     }
 
     @Override
     public void execute(Update update, TelegramLongPollingCommandBot bot) {
-        button.switchSelection();
+        StringBuilder result = new StringBuilder();
+        for (ChekBoxButton button : checkBoxButtons) {
+            result.append(button.getCallbackData())
+                    .append(":")
+                    .append(button.isSelected())
+                    .append("\n");
+        }
 
         Message msg = (Message) update.getCallbackQuery()
                 .getMessage();
 
-        EditMessageReplyMarkup answer = new EditMessageReplyMarkup();
-        answer.setMessageId(msg.getMessageId());
+        SendMessage answer = new SendMessage();
+        answer.setText(result.toString());
         answer.setChatId(msg.getChatId());
-        answer.setReplyMarkup(keyboardMarkup);
 
         try {
             bot.execute(answer);
