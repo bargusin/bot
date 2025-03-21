@@ -10,6 +10,7 @@ public class ChekBoxButton extends InlineKeyboardButton {
 
     public ChekBoxButton(String name, String callbackData) {
         this.name = name;
+        this.selected = false;
 
         setText(getButtonText());
         setCallbackData(callbackData);
@@ -18,7 +19,6 @@ public class ChekBoxButton extends InlineKeyboardButton {
     }
 
     public void refresh() {
-        this.selected = false;
         setText(getButtonText());
     }
 

@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import ru.rapidcoder.bot.component.CheckBoxComponent;
 import ru.rapidcoder.bot.component.ChekBoxButton;
+import ru.rapidcoder.bot.component.SendCheckBoxButton;
 import ru.rapidcoder.bot.handler.CheckBoxHandler;
 
 public class ChekBoxCommandOne extends ServiceCommand {
@@ -20,7 +21,7 @@ public class ChekBoxCommandOne extends ServiceCommand {
         addCheckBoxButton(checkBoxComponent, "Button 2.1", "CallbackData_2.1");
         addCheckBoxButton(checkBoxComponent, "Button 3.1", "CallbackData_3.1");
 
-        //checkBoxComponent.addSender(new SendCheckBoxButton("Send", "sendCallbackData_1"), new SendCheckBoxButton("Cancel", "cancelCallbackData_1"));
+        checkBoxComponent.addSender(new SendCheckBoxButton("Send", "sendCallbackData_1"), new SendCheckBoxButton("Cancel", "cancelCallbackData_1"));
         return checkBoxComponent.getKeyboardMarkup();
     }
 
