@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -19,13 +20,12 @@ public class SendCheckBoxHandler implements Handler {
 
     private final SendCheckBoxButton button;
 
-    private final List<ChekBoxButton> checkBoxButtons;
+    private List<ChekBoxButton> checkBoxButtons;
 
     private InlineKeyboardMarkup keyboardMarkup;
 
-    public SendCheckBoxHandler(SendCheckBoxButton button, List<ChekBoxButton> checkBoxButtons) {
+    public SendCheckBoxHandler(SendCheckBoxButton button) {
         this.button = button;
-        this.checkBoxButtons = checkBoxButtons;
     }
 
     @Override
@@ -41,12 +41,12 @@ public class SendCheckBoxHandler implements Handler {
         Message msg = (Message) update.getCallbackQuery()
                 .getMessage();
 
-        SendMessage answer = new SendMessage();
-        answer.setText(result.toString());
-        answer.setChatId(msg.getChatId());
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText(result.toString());
+        sendMessage.setChatId(msg.getChatId());
 
         try {
-            bot.execute(answer);
+            bot.execute(sendMessage);
         } catch (TelegramApiException e) {
             logger.error(e.getMessage(), e);
         }
@@ -55,6 +55,10 @@ public class SendCheckBoxHandler implements Handler {
     @Override
     public String getCallbackData() {
         return button.getCallbackData();
+    }
+
+    public void setCheckBoxButtons(List<ChekBoxButton> checkBoxButtons) {
+        this.checkBoxButtons = checkBoxButtons;
     }
 
     public void setKeyboardMarkup(InlineKeyboardMarkup keyboardMarkup) {

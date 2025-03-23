@@ -28,12 +28,12 @@ public class CheckBoxComponent {
         rowsInline.add(rowInline);
     }
 
-    public void addSender(SendCheckBoxButton sendButton, SendCheckBoxButton cancelButton) {
+    public void addSender(SendCheckBoxButton sendButton, SendCheckBoxHandler handler) {
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
-        handlerExcecutor.add(new SendCheckBoxHandler(sendButton, getItems()));
+        handlerExcecutor.add(handler);
         //handlerExcecutor.add(new Handler(cancelButton));
         rowInline.add(sendButton);
-        rowInline.add(cancelButton);
+        rowInline.add(sendButton);
         rowsInline.add(rowInline);
     }
 

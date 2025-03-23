@@ -8,6 +8,7 @@ import ru.rapidcoder.bot.component.CheckBoxComponent;
 import ru.rapidcoder.bot.component.ChekBoxButton;
 import ru.rapidcoder.bot.component.SendCheckBoxButton;
 import ru.rapidcoder.bot.handler.CheckBoxHandler;
+import ru.rapidcoder.bot.handler.SendCheckBoxHandler;
 
 public class ChekBoxCommandOne extends ServiceCommand {
 
@@ -21,7 +22,13 @@ public class ChekBoxCommandOne extends ServiceCommand {
         addCheckBoxButton(checkBoxComponent, "Button 2.1", "CallbackData_2.1");
         addCheckBoxButton(checkBoxComponent, "Button 3.1", "CallbackData_3.1");
 
-        checkBoxComponent.addSender(new SendCheckBoxButton("Send", "sendCallbackData_1"), new SendCheckBoxButton("Cancel", "cancelCallbackData_1"));
+        SendCheckBoxButton sendCheckBoxButton = new SendCheckBoxButton("Send", "sendCallbackData_1");
+        SendCheckBoxHandler sendCheckBoxHandler = new SendCheckBoxHandler(sendCheckBoxButton);
+        sendCheckBoxHandler.setCheckBoxButtons(checkBoxComponent.getItems());
+        sendCheckBoxHandler.setKeyboardMarkup(checkBoxComponent.getKeyboardMarkup());
+
+        checkBoxComponent.addSender(sendCheckBoxButton,sendCheckBoxHandler);
+
         return checkBoxComponent.getKeyboardMarkup();
     }
 

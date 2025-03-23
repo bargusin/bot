@@ -29,13 +29,13 @@ public class CheckBoxHandler implements Handler {
         Message msg = (Message) update.getCallbackQuery()
                 .getMessage();
 
-        EditMessageReplyMarkup answer = new EditMessageReplyMarkup();
-        answer.setMessageId(msg.getMessageId());
-        answer.setChatId(msg.getChatId());
-        answer.setReplyMarkup(keyboardMarkup);
+        EditMessageReplyMarkup sendMessage = new EditMessageReplyMarkup();
+        sendMessage.setMessageId(msg.getMessageId());
+        sendMessage.setChatId(msg.getChatId());
+        sendMessage.setReplyMarkup(keyboardMarkup);
 
         try {
-            bot.execute(answer);
+            bot.execute(sendMessage);
         } catch (TelegramApiException e) {
             logger.error(e.getMessage(), e);
         }
